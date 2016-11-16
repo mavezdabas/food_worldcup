@@ -11,7 +11,7 @@ foodData <- read.csv("food-world-cup-data.csv",header = TRUE)
 ########################
 # Data Set Information
 ########################
-colnames(foodData)
+#colnames(foodData)
 
 # Count with number of empty entries per column
 na_count <-sapply(foodData, function(y) sum(length(which(is.na(y)))))
@@ -35,10 +35,10 @@ allValues <- data.frame(foodData[complete.cases(foodData), collist])
 ##########################
 
 # Most Liked food
-View(data.frame(sapply(foodData, function(y) sum(length(which((y == "5")))))))
+# View(data.frame(sapply(foodData, function(y) sum(length(which((y == "5")))))))
 
 # Worst liked food
-View(data.frame(sapply(foodData, function(y) sum(length(which((y == "1")))))))
+# View(data.frame(sapply(foodData, function(y) sum(length(which((y == "1")))))))
 
 
 # Counting rating for each cusinies
