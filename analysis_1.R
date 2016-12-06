@@ -69,7 +69,12 @@ advanceRating <- advanceRating %>%
 summary(advanceRating$Rating)
 
 
-
+# Top Food Data
+topFood <- foodData %>%
+  dplyr::select(RespondentID,Level_of_knowledge,
+                Interested_cuisines_world,Household_Income,Age,
+                Location,Education,United_States,Gender,Mexico,Italy,
+                China,Japan,England,France,Germany,India,Greece,Thailand)
 
 
 
