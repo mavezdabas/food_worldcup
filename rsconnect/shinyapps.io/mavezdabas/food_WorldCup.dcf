@@ -2,8 +2,8 @@ name: food_WorldCup
 account: mavezdabas
 server: shinyapps.io
 appId: 137860
-bundleId: 635910
+bundleId: 637335
 url: https://mavezdabas.shinyapps.io/food_WorldCup/
-when: 1480912248.6258
+when: 1481000159.48024
 asMultiple: FALSE
 asStatic: FALSE

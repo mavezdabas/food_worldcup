@@ -192,7 +192,7 @@ body <- dashboardBody(
             parcoordsOutput("parallelPlot_2"),
             DT::dataTableOutput("regionTopUI"),
             # This is the Reference Section of the Visualization
-            h3("Refrences", align = "center"),
+            h3("References", align = "center"),
             p("Please find the following links to the references used in designing and programming the application "),
             a("1. Github Link", href="https://github.com/fivethirtyeight/data/tree/master/food-world-cup"),
             br(),
