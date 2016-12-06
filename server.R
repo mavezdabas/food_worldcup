@@ -455,10 +455,23 @@ server <- function(input,output,session) {
                         "Percentage of Rating: ", bestP$BestPercentage, "<br>"))
       }else if(input$region == "All"){
         tableRendered <- topFood
+        # For All this will show all the States at once
+        stateAbb <- c("IL","IN","MI","OH","WI","AK","CA","HI","OR","WA")
+        bestCuisine <- region_TopFood %>%
+          dplyr::filter(Location == "East North Central" | Location == "Pacific") %>%
+          dplyr::select(Best)
+        bestCuisine <- bestCuisine[1,1]
+        bestP <- region_TopFood %>%
+          dplyr::filter(Location == "East North Central" | Location == "Pacific") %>%
+          dplyr::select(BestPercentage)
+        bestP <- bestP[1,1]
+        # Hover
+        hover <- (paste("Division: East North Central",'<br>',
+                        "Favourite Cuisine: ", bestCuisine$Best[1],"<br>",
+                        "Percentage of Rating: ", bestP$BestPercentage[1], "<br>"))
       }else {
         tableRendered <- topFood
       }
-      
       
       
       # Now we will need to have Maps for each of the locations.
@@ -579,6 +592,9 @@ server <- function(input,output,session) {
         )
       )
       
+      # output$mySite <- renderUI({
+      #   tags$a <- "© Service Data Science 2016 © <a href='http://www.teslamotors.com'>Tesla Motors</a>"
+      # })
       
     },min = 0, max = 1, value = NULL, message = "Loading", detail= "Loading")
     
