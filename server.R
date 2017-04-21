@@ -89,11 +89,6 @@ server <- function(input,output,session) {
     withProgress({
       # Raw Data Table
       output$foodTableUI  <- DT::renderDataTable({foodData})
-      # Table for top foods
-      # output$topFoodUI <- DT::renderDataTable({
-      #   topFood %>%
-      #     dplyr::filter(Level_of_knowledge == input$knowledgeSelect)
-      #   })
       # Location Based Table
       
       if (input$region == "East North Central") {
@@ -149,22 +144,23 @@ server <- function(input,output,session) {
           x = ~Knowledge_Level,
           y = ~Number,
           type = "bar"
-        )
+        ) %>%
+          layout(title="Level of Food Knowledge")
       })
       # Pie Chart to show percentage of male and female in different 
       # regions
       output$genderPlot <- renderPlotly({
         plot_ly(genderTable, labels = ~Gender, values = ~Number, type = 'pie') %>%
-          layout(xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
+          layout(title="Gender Distribution",xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
                  yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE))
         
       })
       
       # Bar Chart to show the distribution of Age as per different region
       output$agePlot <- renderPlotly({
-        plot_ly(ageTable, x = ~Age, y = ~Number, type = 'bar',color = ~Age) #%>%
-          # layout(xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
-          #        yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE))
+        plot_ly(ageTable, x = ~Age, y = ~Number, type = 'bar',color = ~Age) %>%
+          layout(title="Age Distribution",xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
+                 yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE))
         
       })
 
@@ -501,7 +497,7 @@ server <- function(input,output,session) {
                 colors = 'Purples',
                 showscale = FALSE,
                 locationmode = 'USA-states') %>%
-          layout(geo = g,title = 'Best Rated Cuisine <br> (Hover for breakdown)')
+          layout(geo = g,title = 'Italian Best Rated Cuisine <br> (Hover for breakdown)')
       })
       
       # Table with Regional Select Best Cuisine
@@ -509,7 +505,11 @@ server <- function(input,output,session) {
         region_TopFood,
         options = list(scrollX = TRUE)
       )
-      
+      # Table for all top Food
+      output$topFoodUI <- DT::renderDataTable(
+        topFood,
+        options = list(scrollX = TRUE)
+      )
       
       # This will be the parallel coordinate plot
       # Plot 1 Exampel
@@ -520,56 +520,56 @@ server <- function(input,output,session) {
           , brushMode = "2D-strums"
           , reorderable = T
           , queue = T
-          , dimensions = list(
-            # American = list(
-              # tickValues = unique(region_TopFood$American)
-              # tickValues = seq(5,60,by = 5)
-            # ),
-            Mexican = list(
-              # tickValues = unique(region_TopFood$Mexican)
-              tickValues = seq(5,60,by = 5)
-            ),
-            Italian = list(
-              # tickValues = unique(region_TopFood$Italian)
-              tickValues = seq(5,60,by = 5)
-            ),
-            Chinese = list(
-              # tickValues = unique(region_TopFood$Chinese)
-              tickValues = seq(5,60,by = 5)
-            ),
-            Japnese = list(
-              # tickValues = unique(region_TopFood$Japnese)
-              tickValues = seq(5,60,by = 5)
-            ),
-            English = list(
-              # tickValues = unique(region_TopFood$England)
-              tickValues = seq(5,60,by = 5)
-            ),
-            French = list(
-              # tickValues = unique(region_TopFood$Frence)
-              tickValues = seq(5,60,by = 5)
-            ),
-            German = list(
-              # tickValues = unique(region_TopFood$Germany)
-              tickValues = seq(5,60,by = 5)
-            ),
-            Indian = list(
-              # tickValues = unique(region_TopFood$Indian)
-              tickValues = seq(5,60,by = 5)
-            ),
-            Greece = list(
-              # tickValues = unique(region_TopFood$Greece)
-              tickValues = seq(5,60,by = 5)
-            ),
-            Thai = list(
-              # tickValues = unique(region_TopFood$Thai)
-              tickValues = seq(5,60,by = 5)
-            ),
-            BestPercentage = list(
-              tickValues = unique(region_TopFood$BestPercentage)
-            )
-            
-            )
+          # , dimensions = list(
+          #   American = list(
+          #     tickValues = unique(region_TopFood$American)
+          #     # tickValues = seq(5,60,by = 5)
+          #   ),
+          #   Mexican = list(
+          #     tickValues = unique(region_TopFood$Mexican)
+          #     # tickValues = seq(5,60,by = 5)
+          #   ),
+          #   Italian = list(
+          #     tickValues = unique(region_TopFood$Italian)
+          #     # tickValues = seq(5,60,by = 5)
+          #   ),
+          #   Chinese = list(
+          #     tickValues = unique(region_TopFood$Chinese)
+          #     # tickValues = seq(5,60,by = 5)
+          #   ),
+          #   Japnese = list(
+          #     tickValues = unique(region_TopFood$Japnese)
+          #     # tickValues = seq(5,60,by = 5)
+          #   ),
+          #   English = list(
+          #     tickValues = unique(region_TopFood$England)
+          #     # tickValues = seq(5,60,by = 5)
+          #   ),
+          #   French = list(
+          #     tickValues = unique(region_TopFood$Frence)
+          #     # tickValues = seq(5,60,by = 5)
+          #   ),
+          #   German = list(
+          #     tickValues = unique(region_TopFood$Germany)
+          #     # tickValues = seq(5,60,by = 5)
+          #   ),
+          #   Indian = list(
+          #     tickValues = unique(region_TopFood$Indian)
+          #     # tickValues = seq(5,60,by = 5)
+          #   ),
+          #   Greece = list(
+          #     tickValues = unique(region_TopFood$Greece)
+          #     # tickValues = seq(5,60,by = 5)
+          #   ),
+          #   Thai = list(
+          #     tickValues = unique(region_TopFood$Thai)
+          #     # tickValues = seq(5,60,by = 5)
+          #   ),
+          #   BestPercentage = list(
+          #     tickValues = unique(region_TopFood$BestPercentage)
+          #   )
+          #   
+          #   )
           ,color = list(
             colorScale = htmlwidgets::JS('d3.scale.category10()' )
           )
@@ -585,16 +585,12 @@ server <- function(input,output,session) {
           , queue = T
           , color = list(
             colorScale = htmlwidgets::JS("d3.scale.category10()")
-            ,colorBy = "Age"
+            # ,colorBy = "Age"
           )
           , alpha = 0.55
           , elementId = 1
         )
       )
-      
-      # output$mySite <- renderUI({
-      #   tags$a <- "© Service Data Science 2016 © <a href='http://www.teslamotors.com'>Tesla Motors</a>"
-      # })
       
     },min = 0, max = 1, value = NULL, message = "Loading", detail= "Loading")
     

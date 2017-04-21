@@ -54,32 +54,6 @@ library(parcoords)
 #####################################
 # UI Header #
 #####################################
-
-
-
-# Team Information
-# tabPanel("Team MJ",
-#          div(class="outer",
-#              tags$head(
-#                # Include our custom CSS
-#                includeCSS("www/custom.css"),
-#                includeScript("gomap.js")
-#              ),
-#              h2("Team Members",align = "center"),
-#              p(),
-#              p(),
-#              h3("1. Mavez Singh Dabas",align = "center"),
-#              p("Masters of Computer Sciene",align = "center"),
-#              p(),
-#              h3("2. Jinni",align = "center"),
-#              p("Masters of Arts Media and Designe",align = "center"),
-#              p(),
-#              p("Story Telling: As we have discussed Characters, Setting,
-#                Plot, Conflict, Resolution")
-#          )
-# ),
-
-#------------------------------------------------------------  
 header <- dashboardHeader(title = "Food World Cup")
 
 sidebar <- dashboardSidebar(
@@ -91,18 +65,6 @@ sidebar <- dashboardSidebar(
                        icon = icon("bar-chart"), selected = TRUE),
               conditionalPanel("input.sidebarmenu == 'exploratoryTab'",
                                useShinyjs(),  
-                               # uiOutput("knowledgeSelectUI"),
-                               # Input for the Region Select
-                               #  This input will be used for the maps
-                               # selectInput("region",label = "Select Region",
-                               #             c("All","East North Central",
-                               #               "East South Central",
-                               #               "Middle Atlantic","Mountain",
-                               #               "New England","Pacific",
-                               #               "South Atlantic",
-                               #               "West North Central",
-                               #               "West South Central"),
-                               #             multiple = FALSE,selected = c("East North Central"))
                                p()
                                
               ),
@@ -129,23 +91,59 @@ body <- dashboardBody(
   tabItems(
     tabItem(tabName = "exploratoryTab",
             includeScript('www/Control.Loading.js'),
-            h1("Food !!",align = "center"),
-            h4("American’s opinion on cuisines across the world. Food-World-Cup dataset released by FivethirtyEight as
-                our preliminary dataset to work on. The dataset is a CSV file with 48 columns
-                and 1373 rows showing 1373 individuals’ opinions on cusines across the world.",align = "center"),
+            h1("Food World Cup !!",align = "center"),
+            
+            br(),
+            h4("How many of you here will call yourself foodie ???",align= "center"),
+            h4("What about your favourite cuisine ???",align= "center"),
+            #h4("Do you consider yourself as a Expert or Novice when it comes to rating ???",align= "center"),
+            h4("Are you happy with what we have ???",align= "center"),
+            #h4("What if we have food of our choice for lunch today ???",align= "center"),
+            #h3("But !!",align = "center"),
+            br(),
+            br(),
+            h5("The job is not as simple as it may seem.....",align = "center"),
+            h5("Entrepreneur/Departments need some more legitimate reasons to 
+               change the current infrastructure...",align = "center"),
+            h5("Making a decision should be followed by some research providing 
+               a backbone to process...",align = "center"),
             p(),
-            h4("FivethirtyEight published a series of infographics in 2014 based on this dataset,
+            p(),
+            h5("Team MJ to the rescue. Team MJ realized this problem 
+               and therefore we decided to work on something similar.
+               We used the rating dataset to create this application which is
+               similar to the problem addressed above.",align = "center"),
+            p(),
+            h5("We present some interactive set of Visualization which might be interested
+               to both customers and stakeholders",align = "center"),
+            # Heading of the Page
+            br(),
+            br(),
+            h5("American’s opinion on cuisines across the world. Food-World-Cup dataset released by FivethirtyEight as
+                our preliminary dataset to work on. The dataset is a CSV file with 48 columns
+               and 1373 rows showing 1373 individuals’ opinions on cuisines across the world.",align = "center"),
+            p(),
+            h5("FivethirtyEight published a series of infographic in 2014 based on this dataset,
                in an attempt to visualize the popularity of world cuisines in U.S. However, the
                infographic, from today’s eyes, is not very intuitive and well designed, so we
                decided to make full use of this multi-dimensional dataset. This visualization can
                provide some insights for school/company cafeteria to improve their dining
                service quality.",align = "center"),
-            p(),
-            p(),
-            # Heading of the Page
+            #
+            #
+            #
             h2("Exploratory Data Analysis",align = "center"),
             br(),
-            p("Finding the Percentage of cuisines depending on the region."),
+            h5("We have cuisines rating from 1 - 5 with 5 being the highest.. "),
+            h5("In the following map we have aggregated the top rated cuisines 
+               for each region and calculated the percentage distribution 
+               of each cuisine."),
+            h5("Out of the percentage we have plotted the best cuisine and 
+                the percentage corresponding to the cuisine.",align = "left"),
+            h5("Favourite cuisine across US is Italian."),
+            h5("Along with the Map View we have also plotted a couple of 
+              exploratory plots Knowledge, Gender and Age."),
+            p(),
             # Input Parameter Values
             selectInput("region",label = "Select Region",
                         c("East North Central",
@@ -163,22 +161,27 @@ body <- dashboardBody(
             
             fluidRow(
               # column(12,box(plotlyOutput("mapPlot"),width = 12)) ,
-              box(plotlyOutput("knowledgePlot"),width=4,
-                  title="Level of Food Knowledge"),
-              box(plotlyOutput("genderPlot"),width=4,
-                  title="Gender Distribution"),
-              box(plotlyOutput("agePlot"),width=4,
-                  title="Age Distribution")
+              box(plotlyOutput("knowledgePlot"),width=4),
+              box(plotlyOutput("genderPlot"),width=4),
+              box(plotlyOutput("agePlot"),width=4)
             ),
-            
-            h2("Regional Percentage"),
+            br(),
+            br(),
+            h2("Regional Parallel Distribution",align = "center"),
+            h5("To get a better understanding of the percentage distribution
+               we have plotted a coordinate plot with percentage of cuisines
+               across different regions."),
             parcoordsOutput("parallelPlot"),
             p(),
             
             p(),
             # Input for the Cuisisne Select
             #  This input will be used for Parallel Coordinate Maps
-            h2("Summary Plot"),
+            h2("Summary",align = "center"),
+            h5("We wanted to know the distribution not only depending on region wise
+               but also along the other features as well."),
+            h5("We have the following Parallel Coordinate Graph to view the 
+               frequency of each cuisine's spread for other important features "),
             selectInput("cuisine",label = "Select Cuisine",
                         c("American" ,
                           "Mexico","Italian",
@@ -190,9 +193,13 @@ body <- dashboardBody(
                           "Greece" ,"Thai" ),
                         multiple = FALSE,selected = c("United_States")),
             parcoordsOutput("parallelPlot_2"),
+            h5("Favourite Cuisine Percentage Distribution"),
             DT::dataTableOutput("regionTopUI"),
+            br(),
+            h5("Complete Dataeset"),
+            DT::dataTableOutput("topFoodUI"),
             # This is the Reference Section of the Visualization
-            h3("References", align = "center"),
+            h2("References", align = "center"),
             p("Please find the following links to the references used in designing and programming the application "),
             a("1. Github Link", href="https://github.com/fivethirtyeight/data/tree/master/food-world-cup"),
             br(),
@@ -212,11 +219,11 @@ body <- dashboardBody(
             includeScript('www/Control.Loading.js'),
             h2("Team MJ",align = "center"),
             br(),
-            h3("1. Mavez Singh Dabas"),
+            h4("1. Mavez Singh Dabas"),
             p("Masters of Computer Sciene"),
             a("Mavez's: Linkedin", href="https://www.linkedin.com/in/mavezdabas"),
             br(),
-            h3("2. Jinni(Kini) Luo",align = "center"),
+            h4("2. Jinni(Kini) Luo"),
             p("Masters of Arts Media and Designe"),
             a("Jinni's: Linkedin", href="https://www.linkedin.com/in/jinniluo"),
             br(),
@@ -225,5 +232,5 @@ body <- dashboardBody(
   )
 )
 
-dashboardPage(header, sidebar, body,skin = "black")
+dashboardPage(header, sidebar, body,skin = "blue")
 

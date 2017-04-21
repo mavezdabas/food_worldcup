@@ -4,7 +4,7 @@ input[type="number"] {
 
 div.outer {
   position: fixed;
-  top: 41px;
+  top: 50px;
   left: 0;
   right: 0;
   bottom: 0;
@@ -12,12 +12,40 @@ div.outer {
   padding: 0;
 }
 
+
 /* Customize fonts */
-body, label, input, button, select { 
+label, input, button, select { 
   font-family: 'Helvetica Neue', Helvetica;
   font-weight: 200;
 }
-h1, h2, h3, h4 { font-weight: 400; }
+
+body {
+  font-family: 'Helvetica Neue', Helvetica;
+  font-weight: 200;
+    background-color: white;
+}
+
+
+h1 { font-weight: 600; }
+
+
+h2 { font-weight: 500; 
+    color: #3364FF;
+    font-style: bold;
+    font-family: Impact, sans-serif;
+    text-decoration: underline;
+    }    
+
+h3 { font-weight: 500; 
+    color: #FF334C;
+    font-style: bold;
+    }    
+
+h4 { font-weight: 400; 
+    color: #3364FF;
+    font-style: italic;
+    }
+
 
 h5 {font-weight: 250;}
 
@@ -48,4 +76,10 @@ h5 {font-weight: 250;}
 /* If not using map tiles, show a white background */
 .leaflet-container {
   background-color: white !important;
+}
+
+/* Back Ground seetings for Color */
+.content-wrapper,
+.right-side {
+background-color: #FDFEFE;
 }
